@@ -3,6 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
+const _ = require('lodash');
 
 let posts = [];
 
@@ -18,8 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 app.get('/', function(req, res) {
-  console.log(posts);
-  res.render('home', { homeStartingContent });
+  res.render('home', { homeStartingContent, posts });
 });
 
 app.get('/about', function(req, res) {
@@ -54,7 +54,14 @@ app.post('/compose', function(req, res) {
 
 
 
-
+app.get('/posts/:postName', function(req,res) {
+  posts.forEach(function(post) {
+    // checks if url post name matches stored post name
+    if(_.lowerCase(req.params.postName) === _.lowerCase(post.postTitle)) {
+      res.render('post', { post });
+    }
+  });
+});
 
 app.listen(3000, function() {
   console.log("Server started on port 3000");

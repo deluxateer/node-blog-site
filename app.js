@@ -84,12 +84,6 @@ app.get('/posts/:postId', function(req,res) {
       res.render('post', { homeStartingContent, post });
     }
   });
-  // posts.forEach(function(post) {
-  //   // checks if url post name matches stored post name
-  //   if(_.lowerCase(req.params.postName) === _.lowerCase(post.postTitle)) {
-  //     res.render('post', { post });
-  //   }
-  // });
 });
 
 app.listen(3000, function() {
